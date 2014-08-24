@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -54,7 +55,7 @@ func (s *Scraper) Run() {
 				fmt.Println(r.err)
 			}
 
-			fmt.Println(r.listing.URL.String())
+			json.NewEncoder(os.Stdout).Encode(r.listing)
 		}
 	}()
 
