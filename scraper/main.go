@@ -43,11 +43,9 @@ func (s *Scraper) Run() {
 	jobs := make(chan *http.Request)
 
 	// Start workers
-	go func() {
-		for i := 0; i < s.WorkerCount; i++ {
-			s.worker(jobs)
-		}
-	}()
+	for i := 0; i < s.WorkerCount; i++ {
+		go s.worker(jobs)
+	}
 
 	// Process results
 	go func() {
