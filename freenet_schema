@@ -1,0 +1,30 @@
+Schema of Freenet data:
+list, 344 elements
+
+[list u'activities’, 
+int u'time_updated’, 
+unicode u'description', 
+unicode u'language’, 
+unicode u'url’, 
+int u'container_guid’, 
+int u'time_created’, 
+int u'site_guid’, 
+list u'members’, 
+unicode u'member_region’, 
+int u'guid', int u'owner_guid’, 
+unicode u'name’]
+
+u’activities is a list of dict, each has:
+[unicode u'name’, 
+unicode u'object’, 
+unicode u'summary’, 
+list u'likes’, 
+unicode u'date’, 
+unicode u'message’]
+
+u’likes’ is a list of unicode values (appear to be user names)
+
+u’members’ is a list of dict, each has:
+[int u’uid’,
+unicode u’email’,
+unicode u’name’]
