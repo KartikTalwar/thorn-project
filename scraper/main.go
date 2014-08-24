@@ -9,6 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"code.google.com/p/go.text/unicode/norm"
+
 	"github.com/PuerkitoBio/goquery"
 )
 
@@ -112,11 +114,15 @@ func parseListing(url string) (*Listing, error) {
 		return nil, err
 	}
 
-	listing.Title = doc.Find("#postingTitle .h1link").Text()
-	listing.Description = strings.TrimSpace(doc.Find(".postingBody").Text())
+	form := norm.NFC
 
-	escort.PhoneNumber = phoneNumberRegex.FindString(listing.Description)
-	escort.Age = ageRegex.FindString(listing.Description)
+	listing.Title = form.String(doc.Find("#postingTitle .h1link").Text())
+	listing.Description = form.String(
+		strings.TrimSpace(doc.Find(".postingBody").Text()))
+
+	escort.PhoneNumber = form.String(
+		phoneNumberRegex.FindString(listing.Description))
+	escort.Age = form.String(ageRegex.FindString(listing.Description))
 
 	return &listing, nil
 }
