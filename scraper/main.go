@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"net/url"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -90,7 +90,7 @@ func (s *Scraper) worker(c chan *http.Request) {
 	for req := range c {
 		start := time.Now()
 
-		listing, err := parseListing(req.URL)
+		listing, err := parseListing(req.URL.String())
 		if err != nil {
 			s.results <- &result{err: err}
 			continue
@@ -103,11 +103,11 @@ func (s *Scraper) worker(c chan *http.Request) {
 	}
 }
 
-func parseListing(u *url.URL) (*Listing, error) {
+func parseListing(url string) (*Listing, error) {
 	escort := Escort{}
-	listing := Listing{URL: u, Escort: &escort}
+	listing := Listing{URL: url, Escort: &escort}
 
-	doc, err := goquery.NewDocument(u.String())
+	doc, err := goquery.NewDocument(url)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func parseListing(u *url.URL) (*Listing, error) {
 }
 
 type Listing struct {
-	URL         *url.URL
+	URL         string
 	Title       string
 	Description string
 	Escort      *Escort
