@@ -1,0 +1,7 @@
+POST form to https://feelinsonice-hrd.appspot.com/loq/conversation_post_messages
+
+auth_token {authtoken}
+messages [{"body":{"text":"{msg}","type":"text"},"chat_message_id":"{uuid}","seq_num":{msgNum},"timestamp":{unixtime in ms},"header":{"auth":{"mac":"{mac}","payload":"{payload}"},"to":["{recipient}"],"conv_id":"{username}~{recipient}","from":"{username}","conn_seq_num":{msgNum}},"retried":true,"id":"{uuid}","type":"chat_message"}]
+username {username}
+timestamp {unixtime in ms}
+req_token {reqtoken}
